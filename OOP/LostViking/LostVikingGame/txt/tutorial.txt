@@ -1,0 +1,27 @@
+
+/Actions/
+
+When you press : 
+ UpArrow - you move up
+ DownArrow - you move down
+ LeftArrow - you move left
+ RightArrow - you move right
+ SpaceButon - you shoot
+
+
+/Figures/
+
+
+%%%
+ % - bad ships - they want, to kill you, they have 2 life points
+
+##
+## - rock, neutral figure, but if you collide with it, you die
+
+
+  ^
+-[*]- - you, good ship, who want to kill the bad one, you have 5 life points
+
+/Aim/
+-your main aim is to stay alive.
+

@@ -1,0 +1,4 @@
+Ivan 100
+Petkan 200
+Stoian 300
+Teodora 11
