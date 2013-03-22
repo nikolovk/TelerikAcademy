@@ -8,6 +8,7 @@ public abstract class Document : IDocument
 {
     public string Name { get; protected set; }
     public string Content { get; protected set; }
+    public bool IsEncrypted {get; protected set;}
 
     public virtual void LoadProperty(string key, string value)
     {
@@ -38,24 +39,31 @@ public abstract class Document : IDocument
         StringBuilder result = new StringBuilder();
         result.Append(this.GetType().Name);
         result.Append("[");
-        PropertyInfo[] properties = this.GetType().GetProperties();
-        List<KeyValuePair<string, string>> attributes = new List<KeyValuePair<string, string>>();
-        foreach (var prop in properties)
+        if (!this.IsEncrypted)
         {
-            if ((prop.GetValue(this) !=null) && (prop.Name != "IsEncrypted"))
+            PropertyInfo[] properties = this.GetType().GetProperties();
+            List<KeyValuePair<string, string>> attributes = new List<KeyValuePair<string, string>>();
+            foreach (var prop in properties)
             {
-                attributes.Add(new KeyValuePair<string, string>( prop.Name.ToLower(), prop.GetValue(this).ToString()));
+                if ((prop.GetValue(this) != null) && (prop.Name != "IsEncrypted"))
+                {
+                    attributes.Add(new KeyValuePair<string, string>(prop.Name.ToLower(), prop.GetValue(this).ToString()));
+                }
             }
+            attributes.Sort((a, b) => a.Key.CompareTo(b.Key));
+            foreach (var attribute in attributes)
+            {
+                result.Append(attribute.Key);
+                result.Append("=");
+                result.Append(attribute.Value);
+                result.Append(";");
+            }
+            result.Length--;
         }
-        attributes.Sort((a, b) => a.Key.CompareTo(b.Key));
-        foreach (var attribute in attributes)
+        else
         {
-            result.Append(attribute.Key);
-            result.Append("=");
-            result.Append(attribute.Value);
-            result.Append(";");
+            result.Append("encrypted");
         }
-        result.Length--;
         result.Append("]");
         return result.ToString();
     }

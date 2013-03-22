@@ -6,7 +6,7 @@ using System.Text;
 public class PDFDocument : BinaryDocument, IEncryptable
 {
     public int? Pages { get; protected set; }
-    public bool IsEncrypted { get; protected set; }
+    //public bool IsEncrypted { get; protected set; }
 
     public override void LoadProperty(string key, string value)
     {

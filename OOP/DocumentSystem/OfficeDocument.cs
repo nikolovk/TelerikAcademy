@@ -6,7 +6,7 @@ using System.Text;
 public abstract class OfficeDocument : BinaryDocument, IEncryptable
 {
     public string Version { get; protected set; }
-    public bool IsEncrypted { get; protected set; }
+    //public bool IsEncrypted { get; protected set; }
 
     public override void LoadProperty(string key, string value)
     {

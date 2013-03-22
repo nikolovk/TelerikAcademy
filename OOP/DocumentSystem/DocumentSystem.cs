@@ -45,7 +45,7 @@ public class DocumentSystem
     {
         string[] cmdAttributes = parameters.Split(
             new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-        if (cmd.Substring(0,3) == "Add")
+        if (cmd.Substring(0, 3) == "Add")
         {
             AddDocument(cmdAttributes, cmd);
         }
@@ -122,7 +122,7 @@ public class DocumentSystem
     }
 
 
-   
+
 
     private static void ListDocuments()
     {
@@ -134,37 +134,52 @@ public class DocumentSystem
 
     private static void EncryptDocument(string name)
     {
-        Document doc = allDocuments.Find(a => a.Name == name);
-        if (doc == null)
+        List<Document> docs = allDocuments.FindAll(a => a.Name == name);
+
+        if (docs.Count == 0)
         {
             Console.WriteLine("Document not found: " + name);
         }
-        else if (doc is IEncryptable)
-        {
-            (doc as IEncryptable).Encrypt();
-            Console.WriteLine("Document encrypted: " + doc.Name);
-        }
         else
         {
-            Console.WriteLine("Document does not support encryption: " + doc.Name);
+            foreach (var doc in docs)
+            {
+                if (doc is IEncryptable)
+                {
+                    (doc as IEncryptable).Encrypt();
+                    Console.WriteLine("Document encrypted: " + doc.Name);
+                }
+                else
+                {
+                    Console.WriteLine("Document does not support encryption: " + doc.Name);
+                }
+            }
         }
+
     }
 
     private static void DecryptDocument(string name)
     {
-        Document doc = allDocuments.Find(a => a.Name == name);
-        if (doc == null)
+        List<Document> docs = allDocuments.FindAll(a => a.Name == name);
+
+        if (docs.Count == 0)
         {
             Console.WriteLine("Document not found: " + name);
         }
-        else if (doc is IEncryptable)
-        {
-            (doc as IEncryptable).Encrypt();
-            Console.WriteLine("Document decrypted: " + doc.Name);
-        }
         else
         {
-            Console.WriteLine("Document does not support decryption: " + doc.Name);
+            foreach (var doc in docs)
+            {
+                if (doc is IEncryptable)
+                {
+                    (doc as IEncryptable).Decrypt();
+                    Console.WriteLine("Document decrypted: " + doc.Name);
+                }
+                else
+                {
+                    Console.WriteLine("Document does not support decryption: " + doc.Name);
+                }
+            }
         }
     }
 
@@ -187,19 +202,25 @@ public class DocumentSystem
 
     private static void ChangeContent(string name, string content)
     {
-        Document doc = allDocuments.Find(a => a.Name == name);
-        if (doc == null)
+        List<Document> docs = allDocuments.FindAll(a => a.Name == name);
+        if (docs.Count == 0)
         {
             Console.WriteLine("Document not found: " + name);
         }
-        else if (doc is IEditable)
-        {
-            (doc as IEditable).ChangeContent(content);
-            Console.WriteLine("Document content changed: " + doc.Name);
-        }
         else
         {
-            Console.WriteLine("Document is not editable: " + doc.Name);
+            foreach (var doc in docs)
+            {
+                if (doc is IEditable)
+                {
+                    (doc as IEditable).ChangeContent(content);
+                    Console.WriteLine("Document content changed: " + doc.Name);
+                }
+                else
+                {
+                    Console.WriteLine("Document is not editable: " + doc.Name);
+                }
+            }
         }
     }
 }

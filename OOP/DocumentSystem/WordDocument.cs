@@ -20,9 +20,8 @@ public class WordDocument : OfficeDocument, IEditable
             base.LoadProperty(key, value);
         }
     }
-
     public void ChangeContent(string newContent)
     {
-        throw new NotImplementedException();
+        this.Content = newContent;
     }
 }
