@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width:600px;
+            height:150px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="text" >We are living in an yellow submarine. We don't have anything else. 
+        Inside the submarine is very tight. So we are drinking all the day.
+         We will move out of it in 5 days.
+   </textarea>
+    <a href="#" id="btn-check-prime" onclick="count()">Count</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function count() {
+            var text = document.getElementById("text").value;
+            text = text.toLowerCase();
+            var find = "in";
+            var findLength = find.length;
+            var currentIndex = 0;
+            var startIndex = 0;
+            var count = 0;
+            do {
+                currentIndex = text.indexOf(find, startIndex);
+                if (currentIndex > 0) {
+                    if (text.substr(currentIndex, findLength) == find) {
+                        count++;
+                    }
+                }
+                startIndex = currentIndex + findLength;
+            } while (currentIndex >= 0);
+            jsConsole.writeLine(count);
+        }
+    </script>
+</body>
+</html>

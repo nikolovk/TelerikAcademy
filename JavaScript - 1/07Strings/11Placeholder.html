@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width: 600px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body onload="start()">
+
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function start() {
+            var text = "{0}, {1}, {0} text {2}";
+            jsConsole.writeLine(format(text,1,"Pesho","Gosho"));
+        }
+
+        function format(text) {
+
+            var values = [];
+            var newText = "";
+            var inHolder = false;
+            var number = "";
+            for (var i = 0; i < text.length; i++) {
+                if (text[i] == "{") {
+                    inHolder = true;
+                }
+                if (inHolder) {
+                    if (text[i] != "{" && text[i] != "}") {
+                        number += text[i];
+                    }
+                } else {
+                    newText += text[i];
+                }
+                if (text[i] == "}") {
+                    inHolder = false;
+                    newText += arguments[parseInt(number)+1];
+                    number = "";
+                }
+            }
+            return newText;
+        }
+    </script>
+</body>
+</html>

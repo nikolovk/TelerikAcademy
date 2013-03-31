@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <input type="text" id="tb-number" value="sample" />
+    <a href="#" id="btn-check-prime" onclick="reverse()">Reverse</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function reverse() {
+            var word = jsConsole.read("#tb-number");
+            var reverse = "";
+            for (var i = 0; i < word.length; i++) {
+                reverse = word[i] + reverse;
+            }
+            jsConsole.writeLine(reverse);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <input type="text" id="tb-number" value="((a+b/5-d)" />
+    <a href="#" id="btn-check-prime" onclick="check()">Check</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function check() {
+            var expression = jsConsole.read("#tb-number");
+            var isCorrect = true;
+            var count = 0;
+            for (var i = 0; i < expression.length; i++) {
+                if (expression[i] == "(") {
+                    count++;
+                }
+                if (expression[i] == ")") {
+                    count--;
+                }
+                if (count < 0) {
+                    isCorrect = false;
+                    break;
+                }
+            }
+            if (count != 0) {
+                isCorrect = false;
+            }
+            if (isCorrect) {
+                jsConsole.writeLine("Correct expression");
+            } else {
+                jsConsole.writeLine("Incorrect expression");
+            }
+        }
+    </script>
+</body>
+</html>

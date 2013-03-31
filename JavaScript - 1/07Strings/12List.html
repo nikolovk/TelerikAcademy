@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <a href="#" onclick="fillDiv()">Fill DIV</a>
+    <div data-type="template" id="list-item">
+        <strong>-{name}-</strong> <span>-{age}-</span>
+    </div>
+    <script>
+        function fillDiv() {
+            var people = [{ name: "Peter", age: 14 }, { name: "Asen", age: 54 }, { name: "Ivan", age: 18 }];
+            var tmpl = document.getElementById("list-item").innerHTML;
+            var peopleList = generateList(people, tmpl);
+            document.getElementById("list-item").innerHTML = peopleList;
+            document.getElementsByTagName('a')[0].onclick = null;
+        }
+
+        function generateList(people, template) {
+            var list = "<ul>";
+            for (var i = 0; i < people.length; i++) {
+                list += "<li>";
+                list += generateLine(people[i], template);
+                list += "</li>";
+            }
+            list += "<ul>";
+            return list;
+        }
+
+        function generateLine(person, template) {
+            var line = "";
+            var inHolder = false;
+            var prop = "";
+            for (var i = 0; i < template.length; i++) {
+                if (template[i] = "-") {
+                    var str = template.substr(i, 2);
+                    if (str == "-{") {
+                        inHolder = true;
+                        i += 2;
+                    }
+                }
+                if (template[i] = "}" && inHolder) {
+                    var str = template.substr(i, 2);
+                    if (str == "}-") {
+                        inHolder = false;
+                        i += 2;
+                        line += person[prop];
+                        prop = "";
+                    }
+                }
+                if (!inHolder) {
+                    line += template[i];
+                } else {
+                    prop += template[i];
+                }
+            }
+            return line;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width:600px;
+            height:150px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="text" >Write a function that replaces non breaking white-spaces in a text with &amp;&nbsp;
+</textarea>
+    <a href="#" id="btn-check-prime" onclick="count()">Replace</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function count() {
+            var text = document.getElementById("text").value;
+            var newText = "";
+            for (var i = 0; i < text.length; i++) {
+                if (text[i] == " ") {
+                    newText += "&amp;nbsp;";
+                } else {
+                    newText += text[i];
+                }
+            }
+            jsConsole.writeLine(newText);
+        }
+    </script>
+</body>
+</html>

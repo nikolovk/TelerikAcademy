@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width:600px;
+            height:150px;
+        }
+    </style>
+</head>
+<body onload="count()">
+
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function count() {
+            var url = "http://telerikacademy.com/Courses/Courses/Details/20";
+            var points = url.indexOf(':');
+            var protocol = url.substring(0, points);
+            var start = points + 3;
+            var divider = url.indexOf('/',start);
+            var server = url.substring(start, divider);
+            var resource = url.substring(divider);
+
+            jsConsole.writeLine("[protocol] = " + protocol);
+            jsConsole.writeLine("[server] = " + server);
+            jsConsole.writeLine("[resource] = " + resource);
+        }
+    </script>
+</body>
+</html>

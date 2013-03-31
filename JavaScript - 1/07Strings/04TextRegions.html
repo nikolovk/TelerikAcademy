@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width:600px;
+            height:150px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="text" ><upcase>We are <mixcase>living</mixcase> in</upcase> a <upcase>yellow submarine</upcase>.
+         We <mixcase>don't</mixcase> have <lowcase>ANYthing</lowcase> else.</textarea>
+    <a href="#" id="btn-check-prime" onclick="count()">Count</a>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function count() {
+            var text = document.getElementById("text").value;
+            var newText = "";
+            var startText = 0;
+            var endText = 0;
+            var region = [];
+            var inText = true;
+            var index = 0;
+            while (inText) {
+                endText = text.indexOf('<',index);
+                if (endText >= 0) {
+                    newText += append(text.substring(startText, endText), region[0]);
+                    
+                } else {
+                    newText += append(text.substr(startText), region[0]);
+                    inText = false;
+                }
+                if (inText) {
+                    // read command
+                    var startCommmand = endText + 1;
+                    var endCommand = text.indexOf('>',startCommmand);
+                    var command = text.substring(startCommmand, endCommand);
+                    if (command[0] == '/') {
+                        region.shift();
+                    } else {
+                        region.splice(0, 0, command);
+                    }
+                    startText = endCommand + 1;
+                    index = endCommand + 1;
+                }
+
+            }
+            jsConsole.writeLine(newText);
+        }
+        
+        function append(text, type) {
+            var newText = "";
+            switch (type) {
+                case "upcase":
+                    newText += text.toUpperCase();
+                    break;
+                case "lowcase":
+                    newText += text.toLowerCase();
+                    break;
+                case "mixcase":
+                    for (var i = 0; i < text.length; i++) {
+                        if (Math.random() > 0.5) {
+                            newText += text[i].toUpperCase();
+                        } else {
+                            newText += text[i].toLowerCase();
+                        }
+                    }
+                    break;
+                default:
+                    newText += text;
+                    break;
+            }
+            return newText;
+        }
+    </script>
+</body>
+</html>

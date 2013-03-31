@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width:600px;
+            height:150px;
+        }
+    </style>
+</head>
+<body onload="count()">
+
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function count() {
+            var text = "This is some text with one email yahoo@yahoo.com and anonter email gmail@gmail.com ";
+            var emails = text.match(/\w+@\w+\.\w+/g);
+            jsConsole.writeLine(emails.join(", "));
+        }
+    </script>
+</body>
+</html>

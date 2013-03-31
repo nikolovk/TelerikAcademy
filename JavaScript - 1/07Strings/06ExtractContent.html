@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Data types and variables - Integer types</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width:600px;
+            height:150px;
+        }
+    </style>
+</head>
+<body onload="count()">
+
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        function count() {
+            var text = "<html><head><title>Sample site</title></head><body><div>text<div>more text</div>and more...</div>in body</body></html>";
+            var newText = "";
+            var inTag = false;
+            for (var i = 0; i < text.length; i++) {
+                if (text[i] == "<") {
+                    inTag = true;
+                }
+                if (!inTag) {
+                    newText += text[i];
+                }
+                if (text[i] == ">") {
+                    inTag = false;
+                }
+            }
+            jsConsole.writeLine(newText);
+        }
+    </script>
+</body>
+</html>
