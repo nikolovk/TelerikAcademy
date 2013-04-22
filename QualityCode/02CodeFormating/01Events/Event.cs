@@ -48,6 +48,7 @@ namespace _01Events
             {
                 toString.Append(" | " + this.location);
             }
+
             return toString.ToString();
         }
     }

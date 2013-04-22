@@ -1,4 +1,4 @@
-b = navigator.appName
+var b = navigator.appName;
 addScroll = false;
 if ((navigator.userAgent.indexOf('MSIE 5') > 0) || (navigator.userAgent.indexOf('MSIE 6')) > 0) {
     addScroll = true;
@@ -7,9 +7,11 @@ var off = 0;
 var txt = "";
 var pX = 0;
 var pY = 0;
-document.onmousemove = mouseMove; if (b == "Netscape") {
+document.onmousemove = mouseMove;
+if (b == "Netscape") {
     document.captureEvents(Event.MOUSEMOVE)
 };
+
 function mouseMove(evn) {
     if (b == "Netscape") {
         pX = evn.pageX - 5;
@@ -57,8 +59,7 @@ function HideTip() {
     args = HideTip.arguments;
     if (b == "Netscape") {
         document.layers['ToolTip'].visibility = 'hide';
-    }
-    else {
+    } else {
         document.all['ToolTip'].style.visibility = 'hidden';
     }
 }

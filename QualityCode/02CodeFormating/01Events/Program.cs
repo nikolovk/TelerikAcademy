@@ -52,7 +52,7 @@ namespace _01Events
             {
                 Event newEvent = new Event(date, title, location);
                 this.byTitle.Add(title.ToLower(), newEvent);
-                this.byDate.Add(newEvent); 
+                this.byDate.Add(newEvent);
                 Messages.EventAdded();
             }
 
@@ -65,6 +65,7 @@ namespace _01Events
                     removed++;
                     this.byDate.Remove(eventToRemove);
                 }
+
                 this.byTitle.Remove(title);
                 Messages.EventDeleted(removed);
             }
@@ -79,9 +80,11 @@ namespace _01Events
                     {
                         break;
                     }
+
                     Messages.PrintEvent(eventToShow);
                     showed++;
                 }
+
                 if (showed == 0)
                 {
                     Messages.NoEventsFound();
@@ -91,9 +94,13 @@ namespace _01Events
 
         public static void Main(string[] args)
         {
-            while (ExecuteNextCommand())
+            bool hasCommand = false;
+            do
             {
+                hasCommand = ExecuteNextCommand();
             }
+            while (hasCommand);
+
             Console.WriteLine(output);
         }
 
@@ -105,20 +112,24 @@ namespace _01Events
                 AddEvent(command);
                 return true;
             }
+
             if (command[0] == 'D')
             {
                 DeleteEvents(command);
                 return true;
             }
+
             if (command[0] == 'L')
             {
-                ListEvents(command); 
+                ListEvents(command);
                 return true;
             }
+
             if (command[0] == 'E')
             {
                 return false;
             }
+
             return false;
         }
 
