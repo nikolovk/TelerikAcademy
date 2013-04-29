@@ -10,6 +10,7 @@ namespace testApp
     {
         static void Main(string[] args)
         {
+            some local changes;
         }
     }
 }
