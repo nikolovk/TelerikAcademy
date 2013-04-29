@@ -11,6 +11,7 @@ namespace testApp
         static void Main(string[] args)
         {
             some local changes;
+            some changes on server
         }
     }
 }
