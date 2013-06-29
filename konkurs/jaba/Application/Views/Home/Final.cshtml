@@ -1,0 +1,22 @@
+﻿@model Application.Models.FieldModel
+
+@{
+    ViewBag.Title = "Final";
+}
+
+<h2>Jabacalypse</h2>
+
+
+@Html.EditorFor(model => model.EnemyFrog.IsAlive)
+@Html.EditorFor(model => model.MyFrog.IsAlive)
+
+<p id="message">The winner is </p>
+<script>
+    (function ($) {
+        var myIsAlive = $("#MyFrog_IsAlive").val();
+    })(jQuery);
+</script>
+
+ <footer>
+        <div>&copy Krasimir Nikolov & Ognyan Petkov</div>
+  </footer>

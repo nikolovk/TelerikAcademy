@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jaba", "Jaba\Jaba.csproj", "{183D66C2-0A0B-42F0-84C4-B684B847166C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{66C48AF2-AE83-4DDF-87A5-F2F29D3F7EC5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://nikolovk.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Jaba\\Jaba.csproj
+		SccProjectName1 = Jaba
+		SccLocalPath1 = Jaba
+		SccProjectUniqueName2 = Application\\Application.csproj
+		SccProjectName2 = Application
+		SccLocalPath2 = Application
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{183D66C2-0A0B-42F0-84C4-B684B847166C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{183D66C2-0A0B-42F0-84C4-B684B847166C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{183D66C2-0A0B-42F0-84C4-B684B847166C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{183D66C2-0A0B-42F0-84C4-B684B847166C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C48AF2-AE83-4DDF-87A5-F2F29D3F7EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C48AF2-AE83-4DDF-87A5-F2F29D3F7EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C48AF2-AE83-4DDF-87A5-F2F29D3F7EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C48AF2-AE83-4DDF-87A5-F2F29D3F7EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

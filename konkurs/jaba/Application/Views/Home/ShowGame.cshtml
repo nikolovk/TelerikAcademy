@@ -1,0 +1,188 @@
+﻿@model Application.Models.FieldModel
+
+@{
+    ViewBag.Title = "ShowGame";
+}
+<body class="game">
+    <div id="page">
+        <h1>Jabacalypse</h1>
+
+        @using (Html.BeginForm("ShowGameMove", "Home"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                @*<legend>FieldModel</legend>*@
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Radius)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Radius)
+                    @Html.ValidationMessageFor(model => model.Radius)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.BulletsCount)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.BulletsCount)
+                    @Html.ValidationMessageFor(model => model.BulletsCount)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MyFrog)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MyFrog.Position.X)
+                    @Html.EditorFor(model => model.MyFrog.Position.Y)
+                    @Html.EditorFor(model => model.MyFrog.CanShootAfter)
+                    <div class="hidden">
+                        @if (Model.MyFrog.Move != null)
+                        {
+                            @Html.EditorFor(model => model.MyFrog.Move.X)
+                            @Html.EditorFor(model => model.MyFrog.Move.Y)
+                        }
+
+                        @if (Model.MyFrog.Shoot != null)
+                        {
+                            @Html.EditorFor(model => model.MyFrog.Shoot.X)
+                            @Html.EditorFor(model => model.MyFrog.Shoot.Y)
+                        }
+                    </div>
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EnemyFrog)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EnemyFrog.Position.X)
+                    @Html.EditorFor(model => model.EnemyFrog.Position.Y)
+                    @Html.EditorFor(model => model.EnemyFrog.CanShootAfter)
+
+                    <div class="hidden">
+                        @if (Model.EnemyFrog.Move != null)
+                        {
+                        
+                            @Html.EditorFor(model => model.EnemyFrog.Move.X)
+                            @Html.EditorFor(model => model.EnemyFrog.Move.Y)
+                   
+                        }
+
+                        @if (Model.EnemyFrog.Shoot != null)
+                        {
+                            @Html.EditorFor(model => model.EnemyFrog.Shoot.X)
+                            @Html.EditorFor(model => model.EnemyFrog.Shoot.Y)
+                        }
+                    </div>
+                </div>
+
+                @if (Model.Bullets.Count > 0)
+                {
+                    for (int i = 0; i < Model.Bullets.Count; i++)
+                    {
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Bullets[i])
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Bullets[i].From.X)
+                        @Html.EditorFor(model => model.Bullets[i].From.Y)
+                        <div class="hidden">
+                            @Html.EditorFor(model => model.Bullets[i].To.X)
+                            @Html.EditorFor(model => model.Bullets[i].To.Y)
+                        </div>
+                    </div>
+                    }
+                }
+                <p>
+                    <input type="submit" value="Play" />
+                </p>
+            </fieldset>
+        }
+        <div class="container">
+            <div class="arena"></div>
+            <div class="frog"></div>
+            <div class="frog-oposite"></div>
+        </div>
+        <footer>
+            <p>&copy Krasimir Nikolov & Ognyan Petkov</p>
+        </footer>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+
+        <script>
+            (function ($) {
+                var widthArena = ($('input[id=Radius]').val() * 6);
+                var heightArena = ($('input[id=Radius]').val() * 6);
+                var testw = ($('.container').height());
+                var topArenaPos = (($('.container').height()) / 2 - (widthArena / 2) + 100 - (widthArena / 6));
+                var leftArenaPos = (($('.container').width()) / 2 - (widthArena / 2) + 100 - (widthArena / 6));
+
+                $('.arena').css({ 'top': topArenaPos, 'left': leftArenaPos, 'width': widthArena, 'height': heightArena, 'border-radius': widthArena });
+
+                var cordX = (($('.container').width()) / 2 - 20);
+                var cordY = (($('.container').height()) / 2 - 12);
+
+                var cordXBullet = (($('.container').width()) / 2 - 5);
+                var cordYBullet = (($('.container').height()) / 2 - 5);
+
+
+                var xFrog = ($('input[id=MyFrog_Position_X]').val());
+                var yFrog = ($('input[id=MyFrog_Position_Y]').val());;
+                var xFrogOposite = ($('input[id=EnemyFrog_Position_X]').val());
+                var yFrogOposite = ($('input[id=EnemyFrog_Position_Y]').val());
+
+                //$('.frog').css({ 'top': 300, 'left': 100 });
+                //$('.frog-oposite').css({ 'top': 300, 'left': 10 });
+
+                function frogPosition(x, y, item) {
+                    x = x * 3 + cordX + ($('.container').width()) / 2;
+                    y = y * 3 + cordY;
+                    $(item).css({ 'top': y, 'left': x })
+                }
+                frogPosition(xFrog, yFrog, '.frog');
+                frogPosition(xFrogOposite, yFrogOposite, '.frog-oposite');
+
+                function bulletPosition(xb, yb) {
+                    xb = xb * 3 + cordXBullet;
+                    yb = yb * 3 + cordYBullet;
+                    $('.bullet').css({ 'top': yb, 'left': xb })
+                }
+
+                bulletPosition(xBulletBegin, yBulletBegin);
+
+                var xBulletBegin = ($('input[id=EnemyFrog_Position_Y]').val());
+                var xBulletEnd;
+                var yBulletBegin;
+                var yBulletEnd;
+
+                var xDistance = xBulletBegin - xBulletEnd;
+                var yDistance = yBulletBegin - yBulletEnd;
+
+                $(window).load(function () { $('body').append('<div class="bullet"></div>'); })
+
+
+                $(window).load(function () {
+                    $(".bullet").each(function () {
+                        $('.bullet').animate(
+                        {
+                            left: xDistance,
+                            top: yDistance
+                        },
+                        3000, function () { $('.bullet').remove(); }
+                        );
+                    });
+                });
+
+            })(jQuery);
+
+        </script>
+
+
+
+
+    </div>
+</body>
