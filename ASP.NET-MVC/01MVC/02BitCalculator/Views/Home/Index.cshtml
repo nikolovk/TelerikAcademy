@@ -1,0 +1,44 @@
+﻿@model _02BitCalculator.Models.Units
+@{
+    ViewBag.Title = "Home Page";
+}
+@using (Html.BeginForm("Index", "Home"))
+{
+    <p>
+        @Html.LabelFor(m => m.BaseNumber, "Quantity")
+        @Html.TextBoxFor(m => m.BaseNumber)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.BaseName, "Type")
+        <select name="BaseName">
+            @for (int i = 0; i < Model.AllBits.Count; i++)
+            {
+                <option value="@Model.AllBytes[i].Name">@Model.AllBits[i].Name</option>
+                <option value="@Model.AllBytes[i].Name">@Model.AllBytes[i].Name</option>
+            }
+        </select>
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Multiplayer, "Kilo")
+        <select name="Multiplayer">
+            <option value="1000">1000</option>
+            <option value="1024">1024</option>
+        </select>
+    </p>
+    <input type="submit" value="Submit" />
+}
+
+<table>
+    @for (int i = 0; i < Model.AllBits.Count; i++)
+    {
+        <tr>
+            <td>@Model.AllBits[i].Name</td>
+            <td>@Model.AllBits[i].Value</td>
+        </tr>
+        <tr>
+            <td>@Model.AllBytes[i].Name</td>
+            <td>@Model.AllBytes[i].Value</td>
+        </tr>
+    }
+    <tr></tr>
+</table>
