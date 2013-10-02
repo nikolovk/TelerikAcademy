@@ -1,7 +1,7 @@
 <?php
+session_start();
 $pageTitle = "Начало";
-include 'includes/header.php';
-if (isset($_SESSION['isLogged'])&&$_SESSION['isLogged'] == true) {
+if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] == true) {
     header('Location: files.php');
     exit();
 } else {
@@ -26,18 +26,19 @@ if (isset($_SESSION['isLogged'])&&$_SESSION['isLogged'] == true) {
             }
         }
     }
+    include 'includes/header.php';
     ?>
     <form action="index.php" method="POST">
-        <p class="error"><?= isset($errors['notLogged'])?$errors['notLogged']:'' ?></p>
+        <p class="error"><?= isset($errors['notLogged']) ? $errors['notLogged'] : '' ?></p>
         <p>
             <label for="name">Име:</label>
             <input type="text" name="name" value="<?= $name ?>" />
-            <span class="error"><?= isset($errors['name'])?$errors['name']:'' ?></span>
+            <span class="error"><?= isset($errors['name']) ? $errors['name'] : '' ?></span>
         </p>
         <p>
             <label for="password">Парола:</label>
             <input type="password" name="password" />
-            <span class="error"><?= isset($errors['password'])?$errors['password']:'' ?></span>
+            <span class="error"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
         </p>
         <input type="submit" value="Въведи" />
     </form>

@@ -1,6 +1,6 @@
 <?php
+session_start();
 $pageTitle = "Качване";
-include 'includes/header.php';
 if ($_SESSION['isLogged'] != true) {
     header('Location: index.php');
     exit();
@@ -15,6 +15,7 @@ if ($_SESSION['isLogged'] != true) {
             }
         }
     }
+    include 'includes/header.php';
     ?>
     <div>
         <a href="files.php">Списък</a>

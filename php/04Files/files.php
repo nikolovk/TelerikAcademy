@@ -1,11 +1,12 @@
 <?php
+session_start();
 $pageTitle = "Списък";
-include 'includes/header.php';
 if ($_SESSION['isLogged'] != true) {
     header('Location: index.php');
     exit();
 } else {
     $filesList = scandir('files');
+    include 'includes/header.php';
     ?>
     <div>
         <a href="upload.php">Качване</a>
@@ -19,12 +20,12 @@ if ($_SESSION['isLogged'] != true) {
             </tr>
             <?php
             $filesCount = count($filesList);
-                for ($index = 2; $index < $filesCount; $index++) {
-                    echo '<tr>';
-                    echo '<td><a href="files'.DIRECTORY_SEPARATOR.$filesList[$index].'" target="_blank">'.$filesList[$index].'</a></td>';
-                    echo '<td>'.filesize("files".DIRECTORY_SEPARATOR.$filesList[$index]).'</td>';
-                    echo '</tr>';
-                }
+            for ($index = 2; $index < $filesCount; $index++) {
+                echo '<tr>';
+                echo '<td><a href="files' . DIRECTORY_SEPARATOR . $filesList[$index] . '" target="_blank">' . $filesList[$index] . '</a></td>';
+                echo '<td>' . filesize("files" . DIRECTORY_SEPARATOR . $filesList[$index]) . '</td>';
+                echo '</tr>';
+            }
             ?>
         </table>
     </div>
