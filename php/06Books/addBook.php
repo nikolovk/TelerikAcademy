@@ -6,8 +6,8 @@ $selectedAuthors = array();
 $bookTitle = '';
 if ($_POST) {
     $bookTitle = mysqli_escape_string($connection, trim($_POST['bookTitle']));
-    $selectedAuthors = isset($_POST['authors'])?$_POST['authors']:array();
-    if (mb_strlen($bookTitle,'UTF-8') >= 3 && count($selectedAuthors) > 0) {
+    $selectedAuthors = isset($_POST['authors']) ? $_POST['authors'] : array();
+    if (mb_strlen($bookTitle, 'UTF-8') >= 3 && count($selectedAuthors) > 0) {
         $result = mysqli_query($connection, 'INSERT INTO books (book_title) VALUES ("' . $bookTitle . '")');
         $bookId = mysqli_insert_id($connection);
         $stmt = mysqli_prepare($connection, 'INSERT INTO books_authors (book_id,author_id) VALUES (?,?)');
@@ -29,11 +29,13 @@ if ($_POST) {
 $sql = 'SELECT authors.author_name, authors.author_id FROM authors';
 $query = mysqli_query($connection, $sql);
 $authors = array();
-if ($query && mysqli_num_rows($query) > 0) {
-    $countAuthors = mysqli_num_rows($query);
-    while ($row = mysqli_fetch_assoc($query)) {
-        $authors[$row['author_id']] = $row['author_name'];
-    }
+if (!$query) {
+    echo 'Connection problem';
+    echo mysqli_error($connection);
+    exit;
+}
+while ($row = mysqli_fetch_assoc($query)) {
+    $authors[$row['author_id']] = $row['author_name'];
 }
 include 'includes/header.php';
 ?>
@@ -50,14 +52,14 @@ include 'includes/header.php';
     <p>
         <select name="authors[]" multiple="multiple">
             <?php foreach ($authors as $key => $value) { ?>
-            <option value="<?= $key ?>" <?=  in_array($key, $selectedAuthors) ? 'selected=selected' : '' ?>>
+                <option value="<?= $key ?>" <?= in_array($key, $selectedAuthors) ? 'selected=selected' : '' ?>>
                     <?= $value ?></option>
             <?php } ?>            
-    </select>
-</p>
-<p>
-    <input type="submit" value="Добави" />
-</p>
+        </select>
+    </p>
+    <p>
+        <input type="submit" value="Добави" />
+    </p>
 </form>
 <?php
 include 'includes/footer.php';

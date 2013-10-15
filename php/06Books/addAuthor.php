@@ -2,11 +2,10 @@
 include 'includes/connection.php';
 $errors = array();
 $messages = array();
-$countAuthors = 0;
 if ($_POST) {
     $authorName = mysqli_escape_string($connection, trim($_POST['authorName']));
-    if (mb_strlen($authorName,'UTF-8') >= 3) {
-        $query = mysqli_query($connection, 'SELECT author_name FROM authors WHERE author_name = "' . $authorName.'"');
+    if (mb_strlen($authorName, 'UTF-8') >= 3) {
+        $query = mysqli_query($connection, 'SELECT author_name FROM authors WHERE author_name = "' . $authorName . '"');
         if ($query && mysqli_num_rows($query) == 0) {
             $result = mysqli_query($connection, 'INSERT INTO authors (author_name) VALUES ("' . $authorName . '")');
             if ($result) {
@@ -25,12 +24,15 @@ if ($_POST) {
 $sql = 'SELECT authors.author_name, authors.author_id FROM authors';
 $query = mysqli_query($connection, $sql);
 $authors = array();
-if ($query && mysqli_num_rows($query) > 0) {
-    $countAuthors = mysqli_num_rows($query);
-    while ($row = mysqli_fetch_assoc($query)) {
-        $authors[$row['author_id']] = $row['author_name'];
-    }
+if (!$query) {
+    echo 'Connection problem';
+    echo mysqli_error($connection);
+    exit;
 }
+while ($row = mysqli_fetch_assoc($query)) {
+    $authors[$row['author_id']] = $row['author_name'];
+}
+$countAuthors = count($authors);
 include 'includes/header.php';
 ?>
 
@@ -58,6 +60,9 @@ include 'includes/header.php';
             </tr>
         <?php } ?>
     </table>
+<?php } else {
+    ?>
+    <p>Няма въведени автори</p>
     <?php
 }
 include 'includes/footer.php';

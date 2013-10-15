@@ -1,6 +1,5 @@
 <?php
 include 'includes/connection.php';
-$countBooks = 0;
 if ($_GET) {
     $authorId = (int) $_GET['author_id'];
     $sql = 'SELECT books.book_id, books.book_title, authors.author_name, authors.author_id FROM books 
@@ -14,7 +13,6 @@ if ($_GET) {
         echo mysqli_error($connection);
         exit;
     }
-    $countBooks = mysqli_num_rows($query);
     $books = array();
     while ($row = mysqli_fetch_assoc($query)) {
         $books[$row['book_id']]['title'] = $row['book_title'];

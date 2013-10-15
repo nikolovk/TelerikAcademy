@@ -9,16 +9,15 @@ if (!$query) {
     echo mysqli_error($connection);
     exit;
 }
-$countBooks = mysqli_num_rows($query);
 $books = array();
 while ($row = mysqli_fetch_assoc($query)) {
     $books[$row['book_id']]['title'] = $row['book_title'];
-        $books[$row['book_id']]['authors'][$row['author_id']] = $row['author_name'];
+    $books[$row['book_id']]['authors'][$row['author_id']] = $row['author_name'];
 }
 $countBooks = count($books);
 include 'includes/header.php';
 ?>
- 
+
 <h2>Всички книги</h2>
 <?php if ($countBooks > 0) { ?>
     <table>
@@ -31,11 +30,14 @@ include 'includes/header.php';
                 <td><?= $book['title'] ?></td>
                 <td>
                     <?php foreach ($book['authors'] as $authorId => $authorName) { ?>
-                    <a href="allAuthorBooks.php?author_id=<?= $authorId ?>"><?= $authorName ?></a> 
+                        <a href="allAuthorBooks.php?author_id=<?= $authorId ?>"><?= $authorName ?></a> 
                     <?php } ?>
                 </td>
             </tr>
         <?php } ?>
     </table>
-<?php } 
+<?php } else { ?>
+    <p>Няма въведени книги</p>
+<?php
+}
 include 'includes/footer.php';
